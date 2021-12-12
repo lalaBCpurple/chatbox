@@ -98,7 +98,7 @@ function inputChatKeyPress(){
     'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
   const inputChat=document.getElementById('InputChat');
   let text=inputChat.value;
-  if(text.length==0||text[0]!=' ')return true;
+  if(text.length>0&&text[0]==' ')return true;
   // Bold
   text=substitute(text,/^(.*)\*(.+)\*(.*)$/,sansBold);
   // Circle
@@ -124,7 +124,7 @@ function inputChatKeyPress(){
   return true;}
 
 function chatHelp(){
-  console.log('Entry must start with a space');
+  console.log('Entry must not start with a space');
   console.log('*bold*      𝗯𝗼𝗹𝗱');
   console.log('((circle))  ⓒⓘⓡⓒⓛⓔ');
   console.log('=courier=   𝚌𝚘𝚞𝚛𝚒𝚎𝚛');
