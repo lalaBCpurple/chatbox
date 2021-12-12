@@ -1,3 +1,5 @@
+// Chat Box
+
 function transliterate(oldText,newAlphabet){
   const oldAlphabet=
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -121,6 +123,25 @@ function inputChatKeyPress(){
   inputChat.value=text;
   return true;}
 
-let inputChat=document.getElementById('InputChat');
-console.log(inputChat);
-inputChat.setAttribute('onkeyup','inputChatKeyPress()');
+function chatHelp(){
+  console.log('Entry must start with a space');
+  console.log('*bold*');
+  console.log('((circle))');
+  console.log('=courier=');
+  console.log('~cursive~');
+  console.log('#fraktur#');
+  console.log('##fraktur bold##');
+  console.log('/italic/');
+  console.log('|outline|');
+  console.log('[[square]]');
+  console.log('_underline_');}
+
+function chatInit(){
+  let inputChat=document.getElementById('InputChat');
+  if(inputChat===null){
+    console.log('No chat box found');
+    return;}
+  inputChat.setAttribute('onkeyup','inputChatKeyPress()');
+  chatHelp();}
+
+chatInit();
