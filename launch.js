@@ -1,9 +1,9 @@
 // javascript:
 (function(){
-  const lala="https://lalabcpurple.github.io/chatbox/lala.js";
-  let script=document.createElement("script");
-  script.setAttribute("language","JavaScript");
-  script.setAttribute("crossorigin","anonymous");
-  script.setAttribute("src",lala);
-  script.onload=()=>script.remove();
-  document.head.appendChild(script);})();
+  const j="https://lalabcpurple.github.io/chatbox/chatbox.js";
+  let s=document.createElement("script");
+  s.setAttribute("language","JavaScript");
+  s.setAttribute("crossorigin","anonymous");
+  s.setAttribute("src",j);
+  s.onload=()=>s.remove();
+  document.head.appendChild(s);})();
