@@ -125,16 +125,16 @@ function inputChatKeyPress(){
 
 function chatHelp(){
   console.log('Entry must start with a space');
-  console.log('*bold*');
-  console.log('((circle))');
-  console.log('=courier=');
-  console.log('~cursive~');
-  console.log('#fraktur#');
-  console.log('##fraktur bold##');
-  console.log('/italic/');
-  console.log('|outline|');
-  console.log('[[square]]');
-  console.log('_underline_');}
+  console.log('*bold*      𝗯𝗼𝗹𝗱');
+  console.log('((circle))  ⓒⓘⓡⓒⓛⓔ');
+  console.log('=courier=   𝚌𝚘𝚞𝚛𝚒𝚎𝚛');
+  console.log('~cursive~   𝓬𝓾𝓻𝓼𝓲𝓿𝓮');
+  console.log('#fraktur#   𝔣𝔯𝔞𝔨𝔱𝔲𝔯');
+  console.log('##fr bold## 𝖋𝖗 𝖇𝖔𝖑𝖉');
+  console.log('/italic/    𝙞𝙩𝙖𝙡𝙞𝙘');
+  console.log('|outline|   𝕠𝕦𝕥𝕝𝕚𝕟𝕖');
+  console.log('[[square]]  🅂🅀🅄🄰🅁🄴');
+  console.log('_underline_ u̲n̲d̲e̲r̲l̲i̲n̲e̲');}
 
 function chatInit(){
   let inputChat=document.getElementById('InputChat');
