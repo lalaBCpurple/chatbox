@@ -1,6 +1,6 @@
 // Chat Box
 
-function transliterate(oldText,newAlphabet){
+function chatBoxTransliterate(oldText,newAlphabet){
   const oldAlphabet=
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let newText='';
@@ -11,14 +11,14 @@ function transliterate(oldText,newAlphabet){
     newText=newText+char;}
   return newText;}
 
-function substitute(text,regex,newAlphabet){
+function chatBoxSubstitute(text,regex,newAlphabet){
   const match=text.match(regex);
   if(match===null)return text;
   if(match.length!=4)return text;
-  match[2]=transliterate(match[2],newAlphabet);
+  match[2]=chatBoxTransliterate(match[2],newAlphabet);
   return match[1]+match[2]+match[3];}
 
-function inputChatKeyPress(){
+function chatBoxTransform(){
   const circleWhite=[
     'ⓐ','ⓑ','ⓒ','ⓓ','ⓔ','ⓕ','ⓖ','ⓗ','ⓘ','ⓙ','ⓚ','ⓛ','ⓜ',
     'ⓝ','ⓞ','ⓟ','ⓠ','ⓡ','ⓢ','ⓣ','ⓤ','ⓥ','ⓦ','ⓧ','ⓨ','ⓩ',
@@ -97,51 +97,39 @@ function inputChatKeyPress(){
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
     'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
   const inputChat=document.getElementById('InputChat');
+  if(inputChat===null)return;
   let text=inputChat.value;
   if(text.length>0&&text[0]==' ')return true;
   // Bold
-  text=substitute(text,/^(.*)\*(.+)\*(.*)$/,sansBold);
+  text=chatBoxSubstitute(text,/^(.*)\*(.+)\*(.*)$/,sansBold);
   // Circle
-  text=substitute(text,/^(.*)\(\((.+)\)\)(.*)$/,circleWhite);
+  text=chatBoxSubstitute(text,/^(.*)\(\((.+)\)\)(.*)$/,circleWhite);
   // Courier
-  text=substitute(text,/^(.*)=(.+)=(.*)$/,courier);
+  text=chatBoxSubstitute(text,/^(.*)=(.+)=(.*)$/,courier);
   // Cursive
-  text=substitute(text,/^(.*)~(.+)~(.*)$/,cursiveBold);
+  text=chatBoxSubstitute(text,/^(.*)~(.+)~(.*)$/,cursiveBold);
   // Fraktur
   if(text.match(/^(.*)##(.*)#(.*)$/)===null
      &&text.match(/^(.*)#(.*)##(.*)$/)===null)
-    text=substitute(text,/^(.*)#(.+)#(.*)$/,fraktur);
-  text=substitute(text,/^(.*)##(.+)##(.*)$/,frakturBold);
+    text=chatBoxSubstitute(text,/^(.*)#(.+)#(.*)$/,fraktur);
+  text=chatBoxSubstitute(text,/^(.*)##(.+)##(.*)$/,frakturBold);
   // Italic
-  text=substitute(text,/^(.*)\/(.+)\/(.*)$/,sansBoldItalic);
+  text=chatBoxSubstitute(text,/^(.*)\/(.+)\/(.*)$/,sansBoldItalic);
   // Outline
-  text=substitute(text,/^(.*)\|(.+)\|(.*)$/,outline);
+  text=chatBoxSubstitute(text,/^(.*)\|(.+)\|(.*)$/,outline);
   // Square
-  text=substitute(text,/^(.*)\[\[(.+)\]\](.*)$/,squareWhite);
+  text=chatBoxSubstitute(text,/^(.*)\[\[(.+)\]\](.*)$/,squareWhite);
   // Underline
-  text=substitute(text,/^(.*)_(.+)_(.*)$/,underline);
+  text=chatBoxSubstitute(text,/^(.*)_(.+)_(.*)$/,underline);
   inputChat.value=text;
   return true;}
 
-function chatHelp(){
-  console.log('Entry must not start with a space');
-  console.log('*bold*      𝗯𝗼𝗹𝗱');
-  console.log('((circle))  ⓒⓘⓡⓒⓛⓔ');
-  console.log('=courier=   𝚌𝚘𝚞𝚛𝚒𝚎𝚛');
-  console.log('~cursive~   𝓬𝓾𝓻𝓼𝓲𝓿𝓮');
-  console.log('#fraktur#   𝔣𝔯𝔞𝔨𝔱𝔲𝔯');
-  console.log('##fr bold## 𝖋𝖗 𝖇𝖔𝖑𝖉');
-  console.log('/italic/    𝙞𝙩𝙖𝙡𝙞𝙘');
-  console.log('|outline|   𝕠𝕦𝕥𝕝𝕚𝕟𝕖');
-  console.log('[[square]]  🅂🅀🅄🄰🅁🄴');
-  console.log('_underline_ u̲n̲d̲e̲r̲l̲i̲n̲e̲');}
-
-function chatInit(){
+function chatBoxInit(){
   let inputChat=document.getElementById('InputChat');
   if(inputChat===null){
     console.log('No chat box found');
     return;}
-  inputChat.setAttribute('onkeyup','inputChatKeyPress()');
-  chatHelp();}
+  inputChat.setAttribute('onkeyup','chatBoxTransform()');}
 
-chatInit();
+chatBoxInit();
+chatBoxTransform();
