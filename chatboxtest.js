@@ -6,25 +6,30 @@ class ChatBox{
 
   // Version
 
-  static version='0.3';
+  static version='0.4';
+
+  // Data
+
+  static id;
 
   // Constructor
 
-  constructor(){
-    // @ pass in ID
-    let inputChat=document.getElementById('InputChat');
-    if(inputChat===null){
-      console.log('No chat box found');
-      return;}
+  constructor(id){
+    ChatBox.id=id;
     console.log('Chat Box '+ChatBox.version);
-    inputChat.setAttribute('onkeyup','ChatBox.transform()');}
+    const elt=document.getElementById(ChatBox.id);
+    if(elt===null){
+      console.log('No chat box "'+ChatBox.id+'" found');
+      return;}
+    elt.setAttribute('onkeyup','ChatBox.transform()');
+    ChatBox.transform();}
 
   // Functionality
 
-  function transform(){
-    const inputChat=document.getElementById('InputChat');
-    if(inputChat===null)return;
-    let text=inputChat.value;
+  static transform(){
+    const elt=document.getElementById(ChatBox.id);
+    if(elt===null)return;
+    let text=elt.value;
     if(text.length>0&&text[0]==' ')return true;
     // Bold
     text=ChatBox.substituteRegex(
@@ -65,17 +70,17 @@ class ChatBox{
     // Underline
     text=ChatBox.substituteRegex(
       text,/^(.*)_(.+)_(.*)$/,ChatBox.underline);
-    inputChat.value=text;
+    elt.value=text;
     return true;}
 
-  function substituteRegex(text,regex,newAlphabet){
+  static substituteRegex(text,regex,newAlphabet){
     const match=text.match(regex);
     if(match===null)return text;
     if(match.length!=4)return text;
     match[2]=ChatBox.substituteAll(match[2],newAlphabet);
     return match[1]+match[2]+match[3];}
 
-  function substituteAll(oldText,newAlphabet){
+  static substituteAll(oldText,newAlphabet){
     let newText='';
     for(let i=0;i<oldText.length;++i){
       let char=oldText[i];
@@ -197,9 +202,6 @@ class ChatBox{
     'a̳','b̳','c̳','d̳','e̳','f̳','g̳','h̳','i̳','j̳','k̳','l̳','m̳',
     'n̳','o̳','p̳','q̳','r̳','s̳','t̳','u̳','v̳','w̳','x̳','y̳','z̳',
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
-    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
+    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];}
 
-}
-
-new ChatBox();
-ChatBox.transform();
+new ChatBox('InputChat');
