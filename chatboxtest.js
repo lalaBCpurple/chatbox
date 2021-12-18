@@ -146,6 +146,7 @@ function chatBoxInit(){
   if(inputChat===null){
     console.log('No chat box found');
     return;}
+  console.log('Chat Box v0.1');
   inputChat.setAttribute('onkeyup','chatBoxTransform()');}
 
 chatBoxInit();
