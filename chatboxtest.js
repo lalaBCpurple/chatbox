@@ -131,7 +131,10 @@ function chatBoxTransform(){
     text=chatBoxSubstitute(text,/^(.*)#(.+)#(.*)$/,fraktur);
   text=chatBoxSubstitute(text,/^(.*)##(.+)##(.*)$/,frakturBold);
   // Italic
-  text=chatBoxSubstitute(text,/^(.*)\/(.+)\/(.*)$/,sansItalic);
+  if(text.match(/^(.*)\/\/(.*)\/(.*)$/)===null
+     &&text.match(/^(.*)\/(.*)\/\/(.*)$/)===null)
+    text=chatBoxSubstitute(text,/^(.*)\/(.+)\/(.*)$/,sansItalic);
+  text=chatBoxSubstitute(text,/^(.*)\/\/(.+)\/\/(.*)$/,sansBoldItalic);
   // Outline
   text=chatBoxSubstitute(text,/^(.*)\|(.+)\|(.*)$/,outline);
   // Square
