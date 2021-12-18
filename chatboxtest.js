@@ -1,4 +1,6 @@
-// Chat Box
+"use strict";
+
+// *** Chat Box ***
 
 class ChatBox{
 
@@ -8,7 +10,7 @@ class ChatBox{
 
   // Constructor
 
-  function constructor(){
+  constructor(){
     // @ pass in ID
     let inputChat=document.getElementById('InputChat');
     if(inputChat===null){
