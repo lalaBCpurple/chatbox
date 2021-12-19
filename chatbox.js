@@ -5,18 +5,20 @@ ChatBox=class{
 
   // Version
 
-  static version='1.0';
+  static version='1.1';
 
   // Data
 
-  static id='';
-  static bold=ChatBox.sansBold;
-  static italic=ChatBox.sansItalic;
+  static id; // The id of the chatbox element
+  static bold; // The bold font (sans or serif)
+  static italic; // The bold italic font (sans or serif)
 
   // Constructor
 
   constructor(id){
     ChatBox.id=id;
+    ChatBox.bold=ChatBox.sansBold;
+    ChatBox.italic=ChatBox.sansItalic;
     console.log('Chat Box '+ChatBox.version);
     const elt=document.getElementById(ChatBox.id);
     if(elt===null){
