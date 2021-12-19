@@ -1,6 +1,6 @@
 // *** Chat Box ***
 
-class ChatBox{
+ChatBox=class{
 
   // Version
 
