@@ -1,16 +1,14 @@
-"use strict";
-
 // *** Chat Box ***
 
 class ChatBox{
 
   // Version
 
-  static version='0.4';
+  static version='0.5';
 
   // Data
 
-  static id;
+  static id='';
 
   // Constructor
 
