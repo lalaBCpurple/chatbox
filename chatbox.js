@@ -5,7 +5,7 @@ ChatBox=class{
 
   // Version
 
-  static version='0.5';
+  static version='0.6';
 
   // Data
 
