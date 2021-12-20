@@ -93,7 +93,7 @@ ChatBox=class{
       text,/^(.*)_(.+)_(.*)$/,
       [[ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
-    if(debug&&elt.value!=text){
+    if(ChatBox.debug&&elt.value!=text){
       ChatBox.show('From',elt.value);
       ChatBox.show('To',text);}
     elt.value=text;
