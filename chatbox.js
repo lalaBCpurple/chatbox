@@ -3,15 +3,13 @@
 // This allows for the file to be reloaded
 ChatBox=class{
 
-  // Version
-
-  static version='1.2';
-
   // Data
 
-  static id; // The id of the chatbox element
   static bold; // The bold font (sans or serif)
   static italic; // The bold italic font (sans or serif)
+  static debug=false;
+  static id; // The id of the chatbox element
+  static version='1.2';
 
   // Constructor
 
@@ -34,7 +32,7 @@ ChatBox=class{
     if(elt===null)return;
     let text=elt.value;
     if(text.length>0&&text[0]==' ')return true;
-    // Bold
+    // Bold *...*
     text=ChatBox.substituteRegex(
       text,/^(.*)\*(.+)\*(.*)$/,
       [[ChatBox.ascii,ChatBox.bold],
@@ -43,55 +41,61 @@ ChatBox=class{
        [ChatBox.serifItalic,ChatBox.serifBoldItalic],
        [ChatBox.cursive,ChatBox.cursiveBold],
        [ChatBox.fraktur,ChatBox.frakturBold],
+       // These two lines must be in this order
+       // Double bold is color (easter egg)
+       [ChatBox.squareBlack,ChatBox.squareColor],
        [ChatBox.squareWhite,ChatBox.squareBlack]]);
-    // Circle
+    // Circle ((...))
     text=ChatBox.substituteRegex(
       text,/^(.*)\(\((.+)\)\)(.*)$/,
       [[ChatBox.ascii,ChatBox.circleWhite],
        [ChatBox.sans,ChatBox.circleWhite]]);
-    // Courier
+    // Courier =...=
     text=ChatBox.substituteRegex(
       text,/^(.*)=(.+)=(.*)$/,
       [[ChatBox.ascii,ChatBox.courier],
        [ChatBox.sans,ChatBox.courier]]);
-    // Cursive
+    // Cursive ~...~
     text=ChatBox.substituteRegex(
       text,/^(.*)~(.+)~(.*)$/,
       [[ChatBox.ascii,ChatBox.cursive],
        [ChatBox.sans,ChatBox.cursive],
        [ChatBox.sansBold,ChatBox.cursiveBold],
        [ChatBox.serifBold,ChatBox.cursiveBold]]);
-    // Fraktur
+    // Fraktur #...#
     text=ChatBox.substituteRegex(
       text,/^(.*)#(.+)#(.*)$/,
       [[ChatBox.ascii,ChatBox.fraktur],
        [ChatBox.sans,ChatBox.fraktur],
        [ChatBox.sansBold,ChatBox.frakturBold],
        [ChatBox.serifBold,ChatBox.frakturBold]]);
-    // Italic
+    // Italic /.../
     text=ChatBox.substituteRegex(
       text,/^(.*)\/(.+)\/(.*)$/,
       [[ChatBox.ascii,ChatBox.italic],
        [ChatBox.sans,ChatBox.sansItalic],
        [ChatBox.sansBold,ChatBox.sansBoldItalic],
        [ChatBox.serifBold,ChatBox.serifBoldItalic]]);
-    // Outline
+    // Outline |...|
     text=ChatBox.substituteRegex(
       text,/^(.*)\|(.+)\|(.*)$/,
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
-    // Square
+    // Square [[...]]
     text=ChatBox.substituteRegex(
       text,/^(.*)\[\[(.+)\]\](.*)$/,
       [[ChatBox.ascii,ChatBox.squareWhite],
        [ChatBox.sans,ChatBox.squareWhite],
        [ChatBox.sansBold,ChatBox.squareBlack],
        [ChatBox.serifBold,ChatBox.squareBlack]]);
-    // Underline
+    // Underline _..._
     text=ChatBox.substituteRegex(
       text,/^(.*)_(.+)_(.*)$/,
       [[ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
+    if(debug&&elt.value!=text){
+      ChatBox.show('From',elt.value);
+      ChatBox.show('To',text);}
     elt.value=text;
     return true;}
 
@@ -216,6 +220,17 @@ ChatBox=class{
     '🄽','🄾','🄿','🅀','🅁','🅂','🅃','🅄','🅅','🅆','🅇','🅈','🅉',
     '🄰','🄱','🄲','🄳','🄴','🄵','🄶','🄷','🄸','🄹','🄺','🄻','🄼',
     '🄽','🄾','🄿','🅀','🅁','🅂','🅃','🅄','🅅','🅆','🅇','🅈','🅉'];
+  static squareColor=[
+    '0\uFE0F\u20E3',
+    '1\uFE0F\u20E3','2\uFE0F\u20E3','3\uFE0F\u20E3',
+    '4\uFE0F\u20E3','5\uFE0F\u20E3','6\uFE0F\u20E3',
+    '7\uFE0F\u20E3','8\uFE0F\u20E3','9\uFE0F\u20E3',
+    '🅰\ufe0f','🅱\ufe0f','🅲','🅳','🅴','🅵','🅶','🅷','🅸','🅹',
+    '🅺','🅻','🅼','🅽','🅾\ufe0f','🅿\ufe0f','🆀','🆁','🆂','🆃',
+    '🆄','🆅','🆆','\u274E','🆈','🆉',
+    '🅰\ufe0f','🅱\ufe0f','🅲','🅳','🅴','🅵','🅶','🅷','🅸','🅹',
+    '🅺','🅻','🅼','🅽','🅾\ufe0f','🅿\ufe0f','🆀','🆁','🆂','🆃',
+    '🆄','🆅','🆆','\u274E','🆈','🆉'];
   static underline=[
     '0','1','2','3','4','5','6','7','8','9',
     'a̲','b̲','c̲','d̲','e̲','f̲','g̲','h̲','i̲','j̲','k̲','l̲','m̲',
@@ -228,7 +243,16 @@ ChatBox=class{
     'a̳','b̳','c̳','d̳','e̳','f̳','g̳','h̳','i̳','j̳','k̳','l̳','m̳',
     'n̳','o̳','p̳','q̳','r̳','s̳','t̳','u̳','v̳','w̳','x̳','y̳','z̳',
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
-    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];}
+    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
+
+  // Debugging
+
+  static show(pre,text){
+    console.log(pre+': '+text);
+    let hex='';
+    for(let i=0;i<text.length;++i)
+      hex=hex+' '+text[i].charCodeAt(0).toString(16);
+    console.log(hex);}}
 
 function chatBoxInit(){
   console.log('Please update your code');
