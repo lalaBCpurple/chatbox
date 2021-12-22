@@ -91,7 +91,9 @@ ChatBox=class{
     // Underline _..._
     text=ChatBox.substituteRegex(
       text,/^(.*)_(.+)_(.*)$/,
-      [[ChatBox.ascii,ChatBox.underline],
+       // This line must come first
+      [[ChatBox.underline,ChatBox.underlineTwice],
+       [ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
     if(ChatBox.debug&&elt.value!=text){
       ChatBox.show('From',elt.value);
