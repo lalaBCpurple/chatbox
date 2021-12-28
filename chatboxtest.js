@@ -8,7 +8,6 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static italic; // The bold italic font (sans or serif)
   static debug=false;
-  static history=[];
   static id; // The id of the chatbox element
   static version='1.3';
 
@@ -107,7 +106,6 @@ ChatBox=class{
     if(ChatBox.debug){
       ChatBox.show('From',elt.value);
       ChatBox.show('To',text);}
-    history.push(elt.value);
     elt.value=text;
     return true;}
 
