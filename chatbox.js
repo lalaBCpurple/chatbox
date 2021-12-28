@@ -9,7 +9,7 @@ ChatBox=class{
   static italic; // The bold italic font (sans or serif)
   static debug=false;
   static id; // The id of the chatbox element
-  static version='1.2';
+  static version='1.5';
 
   // Constructor
 
@@ -26,6 +26,29 @@ ChatBox=class{
     ChatBox.transform();}
 
   // Functionality
+
+  static reverse(string){
+    let rev='';
+    for(let c of string)rev=c+rev;
+    return rev;}
+
+  static substituteAll(oldText,substitutions){
+    let newText=oldText;
+    for(let i=0;i<substitutions.length;++i){
+      const oldAlpha=substitutions[i][0];
+      const newAlpha=substitutions[i][1];
+      for(let j=0;j<oldAlpha.length;++j){
+        const re=new RegExp(oldAlpha[j],'g');
+        newText=newText.replace(re,newAlpha[j]);}}
+    return newText;}
+
+  static substituteRegex(text,regex,substitutions,reverse=false){
+    const match=text.match(regex);
+    if(match===null)return text;
+    if(match.length!=4)return text;
+    match[2]=ChatBox.substituteAll(match[2],substitutions);
+    if(reverse)match[2]=ChatBox.reverse(match[2]);
+    return match[1]+match[2]+match[3];}
 
   static transform(){
     const elt=document.getElementById(ChatBox.id);
@@ -81,6 +104,14 @@ ChatBox=class{
       text,/^(.*)\|(.+)\|(.*)$/,
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
+    // Rotated ^...^
+    // Abuse of intermediate font
+    text=ChatBox.substituteRegex(
+      text,/^(.*)\^(.+)\^(.*)$/,
+      [[ChatBox.ascii,ChatBox.serifBold],
+       [ChatBox.sans,ChatBox.serifBold],
+       [ChatBox.serifBold,ChatBox.rotated]],
+      true);
     // Square [[...]]
     text=ChatBox.substituteRegex(
       text,/^(.*)\[\[(.+)\]\](.*)$/,
@@ -91,32 +122,17 @@ ChatBox=class{
     // Underline _..._
     text=ChatBox.substituteRegex(
       text,/^(.*)_(.+)_(.*)$/,
-       // This line must come first
+      // This line must come first
+      // Double underline is unreliably rendered
       [[ChatBox.underline,ChatBox.underlineTwice],
        [ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
-    if(ChatBox.debug&&elt.value!=text){
+    if(elt.value==text)return true;
+    if(ChatBox.debug){
       ChatBox.show('From',elt.value);
       ChatBox.show('To',text);}
     elt.value=text;
     return true;}
-
-  static substituteRegex(text,regex,substitutions){
-    const match=text.match(regex);
-    if(match===null)return text;
-    if(match.length!=4)return text;
-    match[2]=ChatBox.substituteAll(match[2],substitutions);
-    return match[1]+match[2]+match[3];}
-
-  static substituteAll(oldText,substitutions){
-    let newText=oldText;
-    for(let i=0;i<substitutions.length;++i){
-      const oldAlpha=substitutions[i][0];
-      const newAlpha=substitutions[i][1];
-      for(let j=0;j<oldAlpha.length;++j){
-        const re=new RegExp(oldAlpha[j],'g');
-        newText=newText.replace(re,newAlpha[j]);}}
-    return newText;}
 
   // Fonts
 
@@ -168,6 +184,12 @@ ChatBox=class{
     '𝕟','𝕠','𝕡','𝕢','𝕣','𝕤','𝕥','𝕦','𝕧','𝕨','𝕩','𝕪','𝕫',
     '𝔸','𝔹','ℂ','𝔻','𝔼','𝔽','𝔾','ℍ','𝕀','𝕁','𝕂','𝕃','𝕄',
     'ℕ','𝕆','ℙ','ℚ','ℝ','𝕊','𝕋','𝕌','𝕍','𝕎','𝕏','𝕐','ℤ'];
+  static rotated=[
+    '𝟢','𝟣','𝟤','𝟥','𝟦','𝟧','𝟨','𝟩','𝟪','𝟫',
+    'ɐ','q','ɔ','p','ǝ','ɟ','ɓ','ɥ','!','ɾ','ʞ','l','ɯ',
+    'u','o','d','b','ɹ','s','ʇ','n','ʌ','ʍ','x','ʎ','z',
+    '∀','ᙠ','Ɔ','ᗡ','Ǝ','Ⅎ','⅁','H','I','ɾ','ʞ','⅂','W',
+    'N','O','Ԁ','Ό','ᴚ','S','⊥','⋂','Λ','M','X','⅄','Z'];
   static sans=[
     '𝟢','𝟣','𝟤','𝟥','𝟦','𝟧','𝟨','𝟩','𝟪','𝟫',
     '𝖺','𝖻','𝖼','𝖽','𝖾','𝖿','𝗀','𝗁','𝗂','𝗃','𝗄','𝗅','𝗆',
