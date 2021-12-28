@@ -6,10 +6,9 @@ ChatBox=class{
   // Data
 
   static bold; // The bold font (sans or serif)
-  static italic; // The bold italic font (sans or serif)
-  static debug=false;
   static id; // The id of the chatbox element
-  static version='1.5';
+  static italic; // The bold italic font (sans or serif)
+  static version='1.6';
 
   // Constructor
 
@@ -29,21 +28,23 @@ ChatBox=class{
 
   static reverse(string){
     let rev='';
-    for(let c of string)rev=c+rev;
+    // Probably O(n^2) but can be done in O(n)
+    for(const c of string)rev=c+rev;
     return rev;}
 
   static substituteAll(oldText,substitutions){
     let newText=oldText;
-    for(let i=0;i<substitutions.length;++i){
-      const oldAlpha=substitutions[i][0];
-      const newAlpha=substitutions[i][1];
-      for(let j=0;j<oldAlpha.length;++j){
-        const re=new RegExp(oldAlpha[j],'g');
-        newText=newText.replace(re,newAlpha[j]);}}
+    substitutions.forEach((sub)=>{
+      const oldAlpha=sub[0];
+      const newAlpha=sub[1];
+      oldAlpha.forEach((c,i)=>{
+        const re=new RegExp(c,'g');
+        newText=newText.replace(re,newAlpha[i]);})});
     return newText;}
 
-  static substituteRegex(text,regex,substitutions,reverse=false){
-    const match=text.match(regex);
+  static substituteRegex(
+    text,re,substitutions,reverse=false){
+    const match=text.match(re);
     if(match===null)return text;
     if(match.length!=4)return text;
     match[2]=ChatBox.substituteAll(match[2],substitutions);
@@ -127,10 +128,8 @@ ChatBox=class{
       [[ChatBox.underline,ChatBox.underlineTwice],
        [ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
+    // Updating might cause the browser some work
     if(elt.value==text)return true;
-    if(ChatBox.debug){
-      ChatBox.show('From',elt.value);
-      ChatBox.show('To',text);}
     elt.value=text;
     return true;}
 
@@ -267,16 +266,7 @@ ChatBox=class{
     'a̳','b̳','c̳','d̳','e̳','f̳','g̳','h̳','i̳','j̳','k̳','l̳','m̳',
     'n̳','o̳','p̳','q̳','r̳','s̳','t̳','u̳','v̳','w̳','x̳','y̳','z̳',
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
-    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
-
-  // Debugging
-
-  static show(pre,text){
-    console.log(pre+': '+text);
-    let hex='';
-    for(let i=0;i<text.length;++i)
-      hex=hex+' '+text[i].charCodeAt(0).toString(16);
-    console.log(hex);}}
+    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];}
 
 function chatBoxInit(){
   console.log('Please update your code');
