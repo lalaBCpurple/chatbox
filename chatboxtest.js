@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.62';
+  static version='1.63';
 
   // Constructor
 
@@ -44,8 +44,8 @@ ChatBox=class{
 
   static substituteRegex(
     text,before,after,substitutions,reverse=false){
-    const re=new RegExp("^(.*)"+before+"(.+)"+after+"(.*)$");
-    const match=text.match(regex);
+    const re=new RegExp('^(.*)'+before+'(.+)'+after+'(.*)$');
+    const match=text.match(re);
     if(match===null)return text;
     if(match.length!=4)return text;
     match[2]=ChatBox.substituteAll(match[2],substitutions);
