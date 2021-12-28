@@ -29,7 +29,9 @@ ChatBox=class{
 
   static reverse(string){
     let rev='';
-    for (let c of string)rev=c.rev;
+    for(let c of string){
+      console.log(c);
+      rev=c+rev;}
     return rev;}
 
   static substituteAll(oldText,substitutions){
