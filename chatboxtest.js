@@ -27,6 +27,29 @@ ChatBox=class{
 
   // Functionality
 
+  static reverse(string){
+    let rev='';
+    for (let c of string)rev=c.rev;
+    return rev;}
+
+  static substituteAll(oldText,substitutions){
+    let newText=oldText;
+    for(let i=0;i<substitutions.length;++i){
+      const oldAlpha=substitutions[i][0];
+      const newAlpha=substitutions[i][1];
+      for(let j=0;j<oldAlpha.length;++j){
+        const re=new RegExp(oldAlpha[j],'g');
+        newText=newText.replace(re,newAlpha[j]);}}
+    return newText;}
+
+  static substituteRegex(text,regex,substitutions,reverse=false){
+    const match=text.match(regex);
+    if(match===null)return text;
+    if(match.length!=4)return text;
+    match[2]=ChatBox.substituteAll(match[2],substitutions);
+    if(reverse)match[2]=ChatBox.reverse(match[2]);
+    return match[1]+match[2]+match[3];}
+
   static transform(){
     const elt=document.getElementById(ChatBox.id);
     if(elt===null)return;
@@ -108,24 +131,6 @@ ChatBox=class{
       ChatBox.show('To',text);}
     elt.value=text;
     return true;}
-
-  static substituteRegex(text,regex,substitutions,reverse=false){
-    const match=text.match(regex);
-    if(match===null)return text;
-    if(match.length!=4)return text;
-    match[2]=ChatBox.substituteAll(match[2],substitutions);
-    if(reverse)match[2]=match[2].reverse();
-    return match[1]+match[2]+match[3];}
-
-  static substituteAll(oldText,substitutions){
-    let newText=oldText;
-    for(let i=0;i<substitutions.length;++i){
-      const oldAlpha=substitutions[i][0];
-      const newAlpha=substitutions[i][1];
-      for(let j=0;j<oldAlpha.length;++j){
-        const re=new RegExp(oldAlpha[j],'g');
-        newText=newText.replace(re,newAlpha[j]);}}
-    return newText;}
 
   // Fonts
 
