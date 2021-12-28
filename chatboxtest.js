@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.63';
+  static version='1.64';
 
   // Constructor
 
@@ -267,7 +267,7 @@ ChatBox=class{
     'a̳','b̳','c̳','d̳','e̳','f̳','g̳','h̳','i̳','j̳','k̳','l̳','m̳',
     'n̳','o̳','p̳','q̳','r̳','s̳','t̳','u̳','v̳','w̳','x̳','y̳','z̳',
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
-    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
+    'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];}
 
 function chatBoxInit(){
   console.log('Please update your code');
