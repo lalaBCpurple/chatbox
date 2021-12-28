@@ -6,10 +6,9 @@ ChatBox=class{
   // Data
 
   static bold; // The bold font (sans or serif)
-  static italic; // The bold italic font (sans or serif)
-  static debug=false;
   static id; // The id of the chatbox element
-  static version='1.61';
+  static italic; // The bold italic font (sans or serif)
+  static version='1.62';
 
   // Constructor
 
@@ -29,7 +28,8 @@ ChatBox=class{
 
   static reverse(string){
     let rev='';
-    for(let c of string)rev=c+rev;
+    // Probably O(n^2) but can be done in O(n)
+    for(const c of string)rev=c+rev;
     return rev;}
 
   static substituteAll(oldText,substitutions){
@@ -37,12 +37,14 @@ ChatBox=class{
     substitutions.forEach((sub)=>{
       const oldAlpha=sub[0];
       const newAlpha=sub[1];
-      oldAlpha.forEach((oldChar,i)=>{
-        const re=new RegExp(oldChar,'g');
+      oldAlpha.forEach((c,i)=>{
+        const re=new RegExp(c,'g');
         newText=newText.replace(re,newAlpha[i]);})});
     return newText;}
 
-  static substituteRegex(text,regex,substitutions,reverse=false){
+  static substituteRegex(
+    text,before,after,substitutions,reverse=false){
+    const re=new RegExp("^(.*)"+before+"(.+)"+after+"(.*)$");
     const match=text.match(regex);
     if(match===null)return text;
     if(match.length!=4)return text;
@@ -57,7 +59,7 @@ ChatBox=class{
     if(text.length>0&&text[0]==' ')return true;
     // Bold *...*
     text=ChatBox.substituteRegex(
-      text,/^(.*)\*(.+)\*(.*)$/,
+      text,'\*','\*',
       [[ChatBox.ascii,ChatBox.bold],
        [ChatBox.sans,ChatBox.sansBold],
        [ChatBox.sansItalic,ChatBox.sansBoldItalic],
@@ -70,67 +72,65 @@ ChatBox=class{
        [ChatBox.squareWhite,ChatBox.squareBlack]]);
     // Circle ((...))
     text=ChatBox.substituteRegex(
-      text,/^(.*)\(\((.+)\)\)(.*)$/,
+      text,'\(\(','\)\)',
       [[ChatBox.ascii,ChatBox.circleWhite],
        [ChatBox.sans,ChatBox.circleWhite]]);
     // Courier =...=
     text=ChatBox.substituteRegex(
-      text,/^(.*)=(.+)=(.*)$/,
+      text,'=','=',
       [[ChatBox.ascii,ChatBox.courier],
        [ChatBox.sans,ChatBox.courier]]);
     // Cursive ~...~
     text=ChatBox.substituteRegex(
-      text,/^(.*)~(.+)~(.*)$/,
+      text,'~','~',
       [[ChatBox.ascii,ChatBox.cursive],
        [ChatBox.sans,ChatBox.cursive],
        [ChatBox.sansBold,ChatBox.cursiveBold],
        [ChatBox.serifBold,ChatBox.cursiveBold]]);
     // Fraktur #...#
     text=ChatBox.substituteRegex(
-      text,/^(.*)#(.+)#(.*)$/,
+      text,'#','#',
       [[ChatBox.ascii,ChatBox.fraktur],
        [ChatBox.sans,ChatBox.fraktur],
        [ChatBox.sansBold,ChatBox.frakturBold],
        [ChatBox.serifBold,ChatBox.frakturBold]]);
     // Italic /.../
     text=ChatBox.substituteRegex(
-      text,/^(.*)\/(.+)\/(.*)$/,
+      text,'\/','\/',
       [[ChatBox.ascii,ChatBox.italic],
        [ChatBox.sans,ChatBox.sansItalic],
        [ChatBox.sansBold,ChatBox.sansBoldItalic],
        [ChatBox.serifBold,ChatBox.serifBoldItalic]]);
     // Outline |...|
     text=ChatBox.substituteRegex(
-      text,/^(.*)\|(.+)\|(.*)$/,
+      text,'\|','\|',
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
     // Abuse of intermediate font
     text=ChatBox.substituteRegex(
-      text,/^(.*)\^(.+)\^(.*)$/,
+      text,'\^','\^',
       [[ChatBox.ascii,ChatBox.serifBold],
        [ChatBox.sans,ChatBox.serifBold],
        [ChatBox.serifBold,ChatBox.rotated]],
       true);
     // Square [[...]]
     text=ChatBox.substituteRegex(
-      text,/^(.*)\[\[(.+)\]\](.*)$/,
+      text,'\[\[','\]\]',
       [[ChatBox.ascii,ChatBox.squareWhite],
        [ChatBox.sans,ChatBox.squareWhite],
        [ChatBox.sansBold,ChatBox.squareBlack],
        [ChatBox.serifBold,ChatBox.squareBlack]]);
     // Underline _..._
     text=ChatBox.substituteRegex(
-      text,/^(.*)_(.+)_(.*)$/,
+      text,'_','_',
       // This line must come first
       // Double underline is unreliably rendered
       [[ChatBox.underline,ChatBox.underlineTwice],
        [ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline]]);
+    // Updating might cause the browser some work
     if(elt.value==text)return true;
-    if(ChatBox.debug){
-      ChatBox.show('From',elt.value);
-      ChatBox.show('To',text);}
     elt.value=text;
     return true;}
 
@@ -268,15 +268,6 @@ ChatBox=class{
     'n̳','o̳','p̳','q̳','r̳','s̳','t̳','u̳','v̳','w̳','x̳','y̳','z̳',
     'A̳','B̳','C̳','D̳','E̳','F̳','G̳','H̳','I̳','J̳','K̳','L̳','M̳',
     'N̳','O̳','P̳','Q̳','R̳','S̳','T̳','U̳','V̳','W̳','X̳','Y̳','Z̳'];
-
-  // Debugging
-
-  static show(pre,text){
-    console.log(pre+': '+text);
-    let hex='';
-    for(let i=0;i<text.length;++i)
-      hex=hex+' '+text[i].charCodeAt(0).toString(16);
-    console.log(hex);}}
 
 function chatBoxInit(){
   console.log('Please update your code');
