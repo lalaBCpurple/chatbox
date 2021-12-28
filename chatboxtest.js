@@ -29,9 +29,7 @@ ChatBox=class{
 
   static reverse(string){
     let rev='';
-    for(let c of string){
-      console.log(c);
-      rev=c+rev;}
+    for(let c of string)rev=c+rev;
     return rev;}
 
   static substituteAll(oldText,substitutions){
@@ -109,8 +107,9 @@ ChatBox=class{
     // Rotated ^...^
     text=ChatBox.substituteRegex(
       text,/^(.*)\^(.+)\^(.*)$/,
-      [[ChatBox.ascii,ChatBox.rotated],
-       [ChatBox.sans,ChatBox.rotated]],
+      [[ChatBox.ascii,ChatBox.serif],
+       [ChatBox.sans,ChatBox.serif],
+       [ChatBox.serif,ChatBox.rotated]],
       true);
     // Square [[...]]
     text=ChatBox.substituteRegex(
