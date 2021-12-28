@@ -9,7 +9,7 @@ ChatBox=class{
   static italic; // The bold italic font (sans or serif)
   static debug=false;
   static id; // The id of the chatbox element
-  static version='1.6';
+  static version='1.61';
 
   // Constructor
 
@@ -34,10 +34,10 @@ ChatBox=class{
 
   static substituteAll(oldText,substitutions){
     let newText=oldText;
-    substitutions.foreach((sub)=>{
+    substitutions.forEach((sub)=>{
       const oldAlpha=sub[0];
       const newAlpha=sub[1];
-      oldAlpha.foreach((oldChar,i)=>{
+      oldAlpha.forEach((oldChar,i)=>{
         const re=new RegExp(oldChar,'g');
         newText=newText.replace(re,newAlpha[i]);})});
     return newText;}
