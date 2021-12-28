@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.64';
+  static version='1.65';
 
   // Constructor
 
@@ -43,8 +43,7 @@ ChatBox=class{
     return newText;}
 
   static substituteRegex(
-    text,before,after,substitutions,reverse=false){
-    const re=new RegExp('^(.*)'+before+'(.+)'+after+'(.*)$');
+    text,re,substitutions,reverse=false){
     const match=text.match(re);
     if(match===null)return text;
     if(match.length!=4)return text;
@@ -59,7 +58,7 @@ ChatBox=class{
     if(text.length>0&&text[0]==' ')return true;
     // Bold *...*
     text=ChatBox.substituteRegex(
-      text,'\*','\*',
+      text,'^(.*)\*(.+)\*(.*)$',
       [[ChatBox.ascii,ChatBox.bold],
        [ChatBox.sans,ChatBox.sansBold],
        [ChatBox.sansItalic,ChatBox.sansBoldItalic],
@@ -72,58 +71,58 @@ ChatBox=class{
        [ChatBox.squareWhite,ChatBox.squareBlack]]);
     // Circle ((...))
     text=ChatBox.substituteRegex(
-      text,'\(\(','\)\)',
+      text,'^(.*)\(\((.+)\)\)(.*)$',
       [[ChatBox.ascii,ChatBox.circleWhite],
        [ChatBox.sans,ChatBox.circleWhite]]);
     // Courier =...=
     text=ChatBox.substituteRegex(
-      text,'=','=',
+      text,'^(.*)=(.+)=(.*)$',
       [[ChatBox.ascii,ChatBox.courier],
        [ChatBox.sans,ChatBox.courier]]);
     // Cursive ~...~
     text=ChatBox.substituteRegex(
-      text,'~','~',
+      text,'^(.*)~(.+)~(.*)$',
       [[ChatBox.ascii,ChatBox.cursive],
        [ChatBox.sans,ChatBox.cursive],
        [ChatBox.sansBold,ChatBox.cursiveBold],
        [ChatBox.serifBold,ChatBox.cursiveBold]]);
     // Fraktur #...#
     text=ChatBox.substituteRegex(
-      text,'#','#',
+      text,'^(.*)#(.+)#(.*)$',
       [[ChatBox.ascii,ChatBox.fraktur],
        [ChatBox.sans,ChatBox.fraktur],
        [ChatBox.sansBold,ChatBox.frakturBold],
        [ChatBox.serifBold,ChatBox.frakturBold]]);
     // Italic /.../
     text=ChatBox.substituteRegex(
-      text,'\/','\/',
+      text,'^(.*)\/(.+)\/(.*)$',
       [[ChatBox.ascii,ChatBox.italic],
        [ChatBox.sans,ChatBox.sansItalic],
        [ChatBox.sansBold,ChatBox.sansBoldItalic],
        [ChatBox.serifBold,ChatBox.serifBoldItalic]]);
     // Outline |...|
     text=ChatBox.substituteRegex(
-      text,'\|','\|',
+      text,'^(.*)\|(.+)\|(.*)$',
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
     // Abuse of intermediate font
     text=ChatBox.substituteRegex(
-      text,'\^','\^',
+      text,'^(.*)\^(.+)\^(.*)$',
       [[ChatBox.ascii,ChatBox.serifBold],
        [ChatBox.sans,ChatBox.serifBold],
        [ChatBox.serifBold,ChatBox.rotated]],
       true);
     // Square [[...]]
     text=ChatBox.substituteRegex(
-      text,'\[\[','\]\]',
+      text,'^(.*)\[\[(.+)\]\](.*)$',
       [[ChatBox.ascii,ChatBox.squareWhite],
        [ChatBox.sans,ChatBox.squareWhite],
        [ChatBox.sansBold,ChatBox.squareBlack],
        [ChatBox.serifBold,ChatBox.squareBlack]]);
     // Underline _..._
     text=ChatBox.substituteRegex(
-      text,'_','_',
+      text,'^(.*)_(.+)_(.*)$',
       // This line must come first
       // Double underline is unreliably rendered
       [[ChatBox.underline,ChatBox.underlineTwice],
