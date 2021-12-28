@@ -105,11 +105,12 @@ ChatBox=class{
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
+    // @ Abuse of intermediate font
     text=ChatBox.substituteRegex(
       text,/^(.*)\^(.+)\^(.*)$/,
-      [[ChatBox.ascii,ChatBox.serif],
-       [ChatBox.sans,ChatBox.serif],
-       [ChatBox.serif,ChatBox.rotated]],
+      [[ChatBox.ascii,ChatBox.serifBold],
+       [ChatBox.sans,ChatBox.serifBold],
+       [ChatBox.serifBold,ChatBox.rotated]],
       true);
     // Square [[...]]
     text=ChatBox.substituteRegex(
