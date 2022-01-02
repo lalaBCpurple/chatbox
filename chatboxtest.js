@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.66';
+  static version='1.7';
 
   // Constructor
 
@@ -17,8 +17,9 @@ ChatBox=class{
     ChatBox.bold=ChatBox.sansBold;
     ChatBox.italic=ChatBox.sansItalic;
     console.log('Chat Box '+ChatBox.version);
-    const elt=document.getElementById(ChatBox.id);
-    if(elt===null){
+    // const elt=document.getElementById(ChatBox.id);
+    const elt=document.body;
+    if(false && elt===null){
       console.log('No chat box "'+ChatBox.id+'" found');
       return;}
     elt.setAttribute('onkeyup','ChatBox.transform()');
@@ -32,6 +33,7 @@ ChatBox=class{
     for(const c of string)rev=c+rev;
     return rev;}
 
+  // @ Iterate characters rather than using a RegExp
   static substituteAll(oldText,substitutions){
     let newText=oldText;
     substitutions.forEach((sub)=>{
@@ -42,6 +44,7 @@ ChatBox=class{
         newText=newText.replace(re,newAlpha[i]);})});
     return newText;}
 
+  // @ Pass in before,after not re
   static substituteRegex(
     text,re,substitutions,reverse=false){
     const match=text.match(re);
@@ -106,7 +109,7 @@ ChatBox=class{
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
-    // Abuse of intermediate font
+    // @ Remove abuse of intermediate font
     text=ChatBox.substituteRegex(
       text,/^(.*)\^(.+)\^(.*)$/,
       [[ChatBox.ascii,ChatBox.serifBold],
