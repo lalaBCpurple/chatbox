@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.7';
+  static version='1.8';
 
   // Constructor
 
@@ -17,12 +17,7 @@ ChatBox=class{
     ChatBox.bold=ChatBox.sansBold;
     ChatBox.italic=ChatBox.sansItalic;
     console.log('Chat Box '+ChatBox.version);
-    // const elt=document.getElementById(ChatBox.id);
-    const elt=document.body;
-    if(false && elt===null){
-      console.log('No chat box "'+ChatBox.id+'" found');
-      return;}
-    elt.setAttribute('onkeyup','ChatBox.transform()');
+    document.body.setAttribute('onkeyup','ChatBox.transform()');
     ChatBox.transform();}
 
   // Functionality
