@@ -2,9 +2,25 @@ ol{
     margin:5pt 0}
 p{
     margin:5pt 0}
+p.literal{
+    border:thin solid purple;
+    font-family:courier;
+    margin-right:2em;
+    padding:0.5em;
+    word-wrap:break-word}
+table img{
+    height:1em;
+    margin-right:0.5em;
+    width:1em}
 td,th{
     border:thin solid purple;
     padding:2pt 5pt}
+td.gray{
+    background-color:#ddd}
+td.green{
+    background-color:#cfc}
+td.red{
+    background-color:#fcc}
 th{
     background-color:purple;
     color:white}
