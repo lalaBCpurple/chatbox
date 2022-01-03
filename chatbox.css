@@ -8,6 +8,8 @@ p.literal{
     margin-right:2em;
     padding:0.5em;
     word-wrap:break-word}
+table{
+    border:thin solid purple}
 table img{
     height:1em;
     margin-right:0.5em;
