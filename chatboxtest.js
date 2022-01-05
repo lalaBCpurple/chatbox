@@ -42,9 +42,9 @@ ChatBox=class{
   static substituteRegex(
     text,before,after,substitutions,reverse=false){
     const x=text.indexOf(before);
-    if(a<0)return text;
+    if(x<0)return text;
     const y=text.indexOf(after,a);
-    if(b<0)return text;
+    if(y<0)return text;
     const a=text.substring(0,x);
     let b=text.substring(x+before.length,y);
     const c=text.substring(y+after.length);
