@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.9';
+  static version='1.10';
 
   // Constructor
 
@@ -43,7 +43,7 @@ ChatBox=class{
     text,before,after,substitutions,reverse=false){
     const x=text.indexOf(before);
     if(x<0)return text;
-    const y=text.indexOf(after,a);
+    const y=text.indexOf(after,x);
     if(y<0)return text;
     const a=text.substring(0,x);
     let b=text.substring(x+before.length,y);
