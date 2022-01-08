@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.20';
+  static version='1.21';
 
   // Constructor
 
@@ -31,24 +31,16 @@ ChatBox=class{
   static substituteAll(oldText,substitutions){
     let newText='';
     for(let c of oldText){
-      substitutions.forEach((sub)=>{
+      for(const i in substitutions){
+        const sub=substitutions[i];
         const oldAlpha=sub[0];
         const newAlpha=sub[1];
-        const i=oldAlpha.indexOf(c);
-        if(i>=0)c=newAlpha[i];
-      });
+        const x=oldAlpha.indexOf(c);
+        if(x>=0){
+          c=newAlpha[x];
+          // Use the first substitution that applies
+          break;}});
       newText=newText+c;}
-    return newText;}
-
-  // @ Iterate characters rather than using a RegExp
-  static substituteAllOld(oldText,substitutions){
-    let newText=oldText;
-    substitutions.forEach((sub)=>{
-      const oldAlpha=sub[0];
-      const newAlpha=sub[1];
-      oldAlpha.forEach((c,i)=>{
-        const re=new RegExp(c,'g');
-        newText=newText.replace(re,newAlpha[i]);})});
     return newText;}
 
   static substituteBetween(
