@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.17';
+  static version='1.18';
 
   // Constructor
 
