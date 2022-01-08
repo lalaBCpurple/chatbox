@@ -39,7 +39,7 @@ ChatBox=class{
         if(x>=0){
           c=newAlpha[x];
           // Use the first substitution that applies
-          break;}});
+          break;}};
       newText=newText+c;}
     return newText;}
 
