@@ -7,8 +7,9 @@ ChatBox=class{
 
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
-  static italic; // The bold italic font (sans or serif)
-  static version='1.22';
+  static italic; // The italic font (sans or serif)
+  static plain; // The plain font (ascii, sans or serif)
+  static version='1.23';
 
   // Constructor
 
@@ -16,6 +17,7 @@ ChatBox=class{
     ChatBox.id=id;
     ChatBox.bold=ChatBox.sansBold;
     ChatBox.italic=ChatBox.sansItalic;
+    ChatBox.plain=ChatBox.ascii;
     console.log('Chat Box '+ChatBox.version);
     document.body.setAttribute('onkeyup','ChatBox.transform()');
     ChatBox.transform();}
@@ -114,12 +116,11 @@ ChatBox=class{
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
-    // @ Remove abuse of intermediate font
     text=ChatBox.substituteBetween(
       text,'^','^',
-      [[ChatBox.ascii,ChatBox.serifBold],
-       [ChatBox.sans,ChatBox.serifBold],
-       [ChatBox.serifBold,ChatBox.rotated]],
+      [[ChatBox.ascii,ChatBox.rotated],
+       [ChatBox.sans,ChatBox.rotated],
+       [ChatBox.rotated,ChatBox.plain]],
       true);
     // Square [[...]]
     text=ChatBox.substituteBetween(
@@ -131,11 +132,10 @@ ChatBox=class{
     // Underline _..._
     text=ChatBox.substituteBetween(
       text,'_','_',
-      // This line must come first
-      // Double underline is unreliably rendered
-      [[ChatBox.underline,ChatBox.underlineTwice],
-       [ChatBox.ascii,ChatBox.underline],
-       [ChatBox.sans,ChatBox.underline]]);
+      [[ChatBox.ascii,ChatBox.underline],
+       [ChatBox.sans,ChatBox.underline],
+       // Double underline is unreliably rendered
+       [ChatBox.underline,ChatBox.underlineTwice]]);
     // Updating might cause the browser some work
     if(elt.value==text)return true;
     elt.value=text;
