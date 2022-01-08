@@ -7,8 +7,9 @@ ChatBox=class{
 
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
-  static italic; // The bold italic font (sans or serif)
-  static version='1.17';
+  static italic; // The italic font (sans or serif)
+  static plain; // The plain font (ascii, sans or serif)
+  static version='1.23';
 
   // Constructor
 
@@ -16,6 +17,7 @@ ChatBox=class{
     ChatBox.id=id;
     ChatBox.bold=ChatBox.sansBold;
     ChatBox.italic=ChatBox.sansItalic;
+    ChatBox.plain=ChatBox.ascii;
     console.log('Chat Box '+ChatBox.version);
     document.body.setAttribute('onkeyup','ChatBox.transform()');
     ChatBox.transform();}
@@ -28,15 +30,19 @@ ChatBox=class{
     for(const c of string)rev=c+rev;
     return rev;}
 
-  // @ Iterate characters rather than using a RegExp
   static substituteAll(oldText,substitutions){
-    let newText=oldText;
-    substitutions.forEach((sub)=>{
-      const oldAlpha=sub[0];
-      const newAlpha=sub[1];
-      oldAlpha.forEach((c,i)=>{
-        const re=new RegExp(c,'g');
-        newText=newText.replace(re,newAlpha[i]);})});
+    let newText='';
+    for(let c of oldText){
+      for(const i in substitutions){
+        const sub=substitutions[i];
+        const oldAlpha=sub[0];
+        const newAlpha=sub[1];
+        const x=oldAlpha.indexOf(c);
+        if(x>=0){
+          c=newAlpha[x];
+          // Use the first substitution that applies
+          break;}};
+      newText=newText+c;}
     return newText;}
 
   static substituteBetween(
@@ -70,10 +76,9 @@ ChatBox=class{
        [ChatBox.serifItalic,ChatBox.serifBoldItalic],
        [ChatBox.cursive,ChatBox.cursiveBold],
        [ChatBox.fraktur,ChatBox.frakturBold],
-       // These two lines must be in this order
+       [ChatBox.squareWhite,ChatBox.squareBlack],
        // Double bold is color (easter egg)
-       [ChatBox.squareBlack,ChatBox.squareColor],
-       [ChatBox.squareWhite,ChatBox.squareBlack]]);
+       [ChatBox.squareBlack,ChatBox.squareColor]]);
     // Circle ((...))
     text=ChatBox.substituteBetween(
       text,'((','))',
@@ -111,12 +116,11 @@ ChatBox=class{
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Rotated ^...^
-    // @ Remove abuse of intermediate font
     text=ChatBox.substituteBetween(
       text,'^','^',
-      [[ChatBox.ascii,ChatBox.serifBold],
-       [ChatBox.sans,ChatBox.serifBold],
-       [ChatBox.serifBold,ChatBox.rotated]],
+      [[ChatBox.ascii,ChatBox.rotated],
+       [ChatBox.sans,ChatBox.rotated],
+       [ChatBox.rotated,ChatBox.plain]],
       true);
     // Square [[...]]
     text=ChatBox.substituteBetween(
@@ -128,11 +132,10 @@ ChatBox=class{
     // Underline _..._
     text=ChatBox.substituteBetween(
       text,'_','_',
-      // This line must come first
-      // Double underline is unreliably rendered
-      [[ChatBox.underline,ChatBox.underlineTwice],
-       [ChatBox.ascii,ChatBox.underline],
-       [ChatBox.sans,ChatBox.underline]]);
+      [[ChatBox.ascii,ChatBox.underline],
+       [ChatBox.sans,ChatBox.underline],
+       // Double underline is unreliably rendered
+       [ChatBox.underline,ChatBox.underlineTwice]]);
     // Updating might cause the browser some work
     if(elt.value==text)return true;
     elt.value=text;
