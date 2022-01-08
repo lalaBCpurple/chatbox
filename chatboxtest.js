@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.18';
+  static version='1.19';
 
   // Constructor
 
@@ -30,7 +30,7 @@ ChatBox=class{
 
   static substituteAll(oldText,substitutions){
     let newText='';
-    for(const c of oldText){
+    for(let c of oldText){
       substitutions.forEach((sub)=>{
         const oldAlpha=sub[0];
         const newAlpha=sub[1];
