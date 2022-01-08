@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.21';
+  static version='1.22';
 
   // Constructor
 
@@ -74,10 +74,9 @@ ChatBox=class{
        [ChatBox.serifItalic,ChatBox.serifBoldItalic],
        [ChatBox.cursive,ChatBox.cursiveBold],
        [ChatBox.fraktur,ChatBox.frakturBold],
-       // These two lines must be in this order
+       [ChatBox.squareWhite,ChatBox.squareBlack],
        // Double bold is color (easter egg)
-       [ChatBox.squareBlack,ChatBox.squareColor],
-       [ChatBox.squareWhite,ChatBox.squareBlack]]);
+       [ChatBox.squareBlack,ChatBox.squareColor]]);
     // Circle ((...))
     text=ChatBox.substituteBetween(
       text,'((','))',
