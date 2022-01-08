@@ -8,7 +8,7 @@ ChatBox=class{
   static bold; // The bold font (sans or serif)
   static id; // The id of the chatbox element
   static italic; // The bold italic font (sans or serif)
-  static version='1.19';
+  static version='1.20';
 
   // Constructor
 
@@ -38,7 +38,7 @@ ChatBox=class{
         if(i>=0)c=newAlpha[i];
       });
       newText=newText+c;}
-    return rev;}
+    return newText;}
 
   // @ Iterate characters rather than using a RegExp
   static substituteAllOld(oldText,substitutions){
