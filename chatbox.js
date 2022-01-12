@@ -10,7 +10,7 @@ ChatBox=class{
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
   static undo=[];
-  static version='1.28';
+  static version='1.29';
 
   // Constructor
 
@@ -119,13 +119,6 @@ ChatBox=class{
       text,'|','|',
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
-    // Rotated ^...^
-    text=ChatBox.substituteBetween(
-      text,'^','^',
-      [[ChatBox.ascii,ChatBox.rotated],
-       [ChatBox.sans,ChatBox.rotated],
-       [ChatBox.rotated,ChatBox.plain]],
-      true);
     // Square [[...]]
     text=ChatBox.substituteBetween(
       text,'[[',']]',
@@ -140,6 +133,14 @@ ChatBox=class{
        [ChatBox.sans,ChatBox.underline],
        // Double underline is unreliably rendered
        [ChatBox.underline,ChatBox.underlineTwice]]);
+    // This comes last to avoid moving special characters
+    // Rotated ^...^
+    text=ChatBox.substituteBetween(
+      text,'^','^',
+      [[ChatBox.ascii,ChatBox.rotated],
+       [ChatBox.sans,ChatBox.rotated],
+       [ChatBox.rotated,ChatBox.plain]],
+      true);
     // Updating might cause the browser some work
     if(elt.value==text)return true;
     elt.value=text;
