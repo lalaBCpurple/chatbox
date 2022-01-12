@@ -9,7 +9,8 @@ ChatBox=class{
   static id; // The id of the chatbox element
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
-  static version='1.23';
+  static undo=[];
+  static version='1.25';
 
   // Constructor
 
@@ -41,26 +42,28 @@ ChatBox=class{
         if(x>=0){
           c=newAlpha[x];
           // Use the first substitution that applies
-          break;}};
+          break;}}
       newText=newText+c;}
     return newText;}
 
+  // @ Still not quite right (second *)
   static substituteBetween(
     text,before,after,substitutions,reverse=false){
-    const x1=text.indexOf(before);
-    if(x1<0)return text;
-    const x2=x1+before.length;
-    // Must be at least one character
-    if(x2+1>=text.length)return text;
-    const y1=text.indexOf(after,x2+1);
-    if(y1<0)return text;
-    const y2=y1+after.length;
-    const a=text.substring(0,x1);
-    let b=text.substring(x2,y1);
-    const c=text.substring(y2);
-    b=ChatBox.substituteAll(b,substitutions);
-    if(reverse)b=ChatBox.reverse(b);
-    return a+b+c;}
+    for(let w=0;w<text.length;){
+      const x1=text.indexOf(before,w);
+      if(x1<0)break;
+      const x2=x1+before.length;
+      const y1=text.indexOf(after,x2);
+      if(y1<0)break;
+      const y2=y1+after.length;
+      const a=text.substring(0,x1);
+      let b=text.substring(x2,y1);
+      const c=text.substring(y2);
+      b=ChatBox.substituteAll(b,substitutions);
+      if(reverse)b=ChatBox.reverse(b);
+      text=a+b+c;
+      w=x1+1;}
+    return text;}
 
   static transform(){
     const elt=document.getElementById(ChatBox.id);
@@ -193,7 +196,7 @@ ChatBox=class{
     'ℕ','𝕆','ℙ','ℚ','ℝ','𝕊','𝕋','𝕌','𝕍','𝕎','𝕏','𝕐','ℤ'];
   static rotated=[
     '𝟢','𝟣','𝟤','𝟥','𝟦','𝟧','𝟨','𝟩','𝟪','𝟫',
-    'ɐ','q','ɔ','p','ǝ','ɟ','ɓ','ɥ','!','ɾ','ʞ','l','ɯ',
+    'ɐ','q','ɔ','p','ǝ','ɟ','ɓ','ɥ','ḷ','ɾ','ʞ','l','ɯ',
     'u','o','d','b','ɹ','s','ʇ','n','ʌ','ʍ','x','ʎ','z',
     '∀','ᙠ','Ɔ','ᗡ','Ǝ','Ⅎ','⅁','H','I','ɾ','ʞ','⅂','W',
     'N','O','Ԁ','Ό','ᴚ','S','⊥','⋂','Λ','M','X','⅄','Z'];
