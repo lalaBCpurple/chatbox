@@ -10,7 +10,7 @@ ChatBox=class{
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
   static undo=[];
-  static version='1.26';
+  static version='1.27';
 
   // Constructor
 
@@ -56,12 +56,14 @@ ChatBox=class{
       const y1=text.indexOf(after,x2);
       if(y1<0)break;
       const y2=y1+after.length;
-      const a=text.substring(0,x1);
-      let b=text.substring(x2,y1);
-      const c=text.substring(y2);
-      b=ChatBox.substituteAll(b,substitutions);
-      if(reverse)b=ChatBox.reverse(b);
-      text=a+b+c;
+      // Must be at least one character
+      if(x2<y1){
+        const a=text.substring(0,x1);
+        let b=text.substring(x2,y1);
+        const c=text.substring(y2);
+        b=ChatBox.substituteAll(b,substitutions);
+        if(reverse)b=ChatBox.reverse(b);
+        text=a+b+c;}
       w=x1+1;}
     return text;}
 
