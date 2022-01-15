@@ -9,8 +9,8 @@ ChatBox=class{
   static id; // The id of the chatbox element
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
-  static undo=[]; // Not used yet
-  static version='1.29';
+  static undo=null; // Not used yet
+  static version='1.30';
 
   // Constructor
 
@@ -70,7 +70,12 @@ ChatBox=class{
     const elt=document.getElementById(ChatBox.id);
     if(elt===null)return;
     let text=elt.value;
-    if(text.length>0&&text[0]==' ')return true;
+    if(text.length>0&&text[0]==' '){
+      // If we've done a change, space is undo
+      if(Chatbox.undo==null)return true;
+      elt.value=Chatbox.undo;
+      Chatbox.undo=null;
+      return true;}
     // Bold *...*
     text=ChatBox.substituteBetween(
       text,'*','*',
@@ -146,6 +151,8 @@ ChatBox=class{
       true);
     // Updating might cause the browser some work
     if(elt.value==text)return true;
+    // Undo goes back to the first change
+    if(Chatbox.undo===null)Chatbox.undo=text;
     elt.value=text;
     return true;}
 
