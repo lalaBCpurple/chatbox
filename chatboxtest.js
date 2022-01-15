@@ -10,7 +10,7 @@ ChatBox=class{
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
   static undo=null; // Not used yet
-  static version='1.31';
+  static version='1.32';
 
   // Constructor
 
@@ -72,9 +72,9 @@ ChatBox=class{
     let text=elt.value;
     if(text.length>0&&text[0]==' '){
       // If we've done a change, space is undo
-      if(Chatbox.undo==null)return true;
-      elt.value=Chatbox.undo;
-      Chatbox.undo=null;
+      if(ChatBox.undo==null)return true;
+      elt.value=ChatBox.undo;
+      ChatBox.undo=null;
       return true;}
     // Bold *...*
     text=ChatBox.substituteBetween(
@@ -152,7 +152,7 @@ ChatBox=class{
     // Updating might cause the browser some work
     if(elt.value==text)return true;
     // Undo goes back to the first change
-    if(Chatbox.undo===null)Chatbox.undo=text;
+    if(ChatBox.undo===null)ChatBox.undo=text;
     elt.value=text;
     return true;}
 
