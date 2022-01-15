@@ -9,7 +9,7 @@ ChatBox=class{
   static id; // The id of the chatbox element
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
-  static undo=[];
+  static undo=[]; // Not used yet
   static version='1.29';
 
   // Constructor
@@ -80,6 +80,7 @@ ChatBox=class{
        [ChatBox.serifItalic,ChatBox.serifBoldItalic],
        [ChatBox.cursive,ChatBox.cursiveBold],
        [ChatBox.fraktur,ChatBox.frakturBold],
+       [ChatBox.circleWhite,ChatBox.circleBlack],
        [ChatBox.squareWhite,ChatBox.squareBlack],
        // Double bold is color (easter egg)
        [ChatBox.squareBlack,ChatBox.squareColor]]);
@@ -87,7 +88,9 @@ ChatBox=class{
     text=ChatBox.substituteBetween(
       text,'((','))',
       [[ChatBox.ascii,ChatBox.circleWhite],
-       [ChatBox.sans,ChatBox.circleWhite]]);
+       [ChatBox.sans,ChatBox.circleWhite],
+       [ChatBox.sansBold,ChatBox.circleBlack],
+       [ChatBox.serifBold,ChatBox.circleBlack]]);
     // Courier =...=
     text=ChatBox.substituteBetween(
       text,'=','=',
@@ -154,6 +157,12 @@ ChatBox=class{
     'n','o','p','q','r','s','t','u','v','w','x','y','z',
     'A','B','C','D','E','F','G','H','I','J','K','L','M',
     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  static circleBlack=[
+    '⓿','➊','➋','➌','➍','➎','➏','➐','➑','➒',
+    '🅐','🅑','🅒','🅓','🅔','🅕','🅖','🅗','🅘','🅙','🅚','🅛','🅜',
+    '🅝','🅞','🅟','🅠','🅡','🅢','🅣','🅤','🅥','🅦','🅧','🅨','🅩',
+    '🅐','🅑','🅒','🅓','🅔','🅕','🅖','🅗','🅘','🅙','🅚','🅛','🅜',
+    '🅝','🅞','🅟','🅠','🅡','🅢','🅣','🅤','🅥','🅦','🅧','🅨','🅩'];
   static circleWhite=[
     '⓪','①','②','③','④','⑤','⑥','⑦','⑧','⑨',
     'ⓐ','ⓑ','ⓒ','ⓓ','ⓔ','ⓕ','ⓖ','ⓗ','ⓘ','ⓙ','ⓚ','ⓛ','ⓜ',
