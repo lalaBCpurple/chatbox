@@ -9,8 +9,8 @@ ChatBox=class{
   static id; // The id of the chatbox element
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
-  static undo=[];
-  static version='1.27';
+  static undo=[]; // Not used yet
+  static version='1.29';
 
   // Constructor
 
@@ -46,7 +46,6 @@ ChatBox=class{
       newText=newText+c;}
     return newText;}
 
-  // @ Still not quite right (second *)
   static substituteBetween(
     text,before,after,substitutions,reverse=false){
     for(let w=0;w<text.length;){
@@ -81,6 +80,7 @@ ChatBox=class{
        [ChatBox.serifItalic,ChatBox.serifBoldItalic],
        [ChatBox.cursive,ChatBox.cursiveBold],
        [ChatBox.fraktur,ChatBox.frakturBold],
+       [ChatBox.circleWhite,ChatBox.circleBlack],
        [ChatBox.squareWhite,ChatBox.squareBlack],
        // Double bold is color (easter egg)
        [ChatBox.squareBlack,ChatBox.squareColor]]);
@@ -88,7 +88,9 @@ ChatBox=class{
     text=ChatBox.substituteBetween(
       text,'((','))',
       [[ChatBox.ascii,ChatBox.circleWhite],
-       [ChatBox.sans,ChatBox.circleWhite]]);
+       [ChatBox.sans,ChatBox.circleWhite],
+       [ChatBox.sansBold,ChatBox.circleBlack],
+       [ChatBox.serifBold,ChatBox.circleBlack]]);
     // Courier =...=
     text=ChatBox.substituteBetween(
       text,'=','=',
@@ -120,13 +122,6 @@ ChatBox=class{
       text,'|','|',
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
-    // Rotated ^...^
-    text=ChatBox.substituteBetween(
-      text,'^','^',
-      [[ChatBox.ascii,ChatBox.rotated],
-       [ChatBox.sans,ChatBox.rotated],
-       [ChatBox.rotated,ChatBox.plain]],
-      true);
     // Square [[...]]
     text=ChatBox.substituteBetween(
       text,'[[',']]',
@@ -141,6 +136,14 @@ ChatBox=class{
        [ChatBox.sans,ChatBox.underline],
        // Double underline is unreliably rendered
        [ChatBox.underline,ChatBox.underlineTwice]]);
+    // This comes last to avoid moving special characters
+    // Rotated ^...^
+    text=ChatBox.substituteBetween(
+      text,'^','^',
+      [[ChatBox.ascii,ChatBox.rotated],
+       [ChatBox.sans,ChatBox.rotated],
+       [ChatBox.rotated,ChatBox.plain]],
+      true);
     // Updating might cause the browser some work
     if(elt.value==text)return true;
     elt.value=text;
@@ -154,6 +157,12 @@ ChatBox=class{
     'n','o','p','q','r','s','t','u','v','w','x','y','z',
     'A','B','C','D','E','F','G','H','I','J','K','L','M',
     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  static circleBlack=[
+    '⓿','➊','➋','➌','➍','➎','➏','➐','➑','➒',
+    '🅐','🅑','🅒','🅓','🅔','🅕','🅖','🅗','🅘','🅙','🅚','🅛','🅜',
+    '🅝','🅞','🅟','🅠','🅡','🅢','🅣','🅤','🅥','🅦','🅧','🅨','🅩',
+    '🅐','🅑','🅒','🅓','🅔','🅕','🅖','🅗','🅘','🅙','🅚','🅛','🅜',
+    '🅝','🅞','🅟','🅠','🅡','🅢','🅣','🅤','🅥','🅦','🅧','🅨','🅩'];
   static circleWhite=[
     '⓪','①','②','③','④','⑤','⑥','⑦','⑧','⑨',
     'ⓐ','ⓑ','ⓒ','ⓓ','ⓔ','ⓕ','ⓖ','ⓗ','ⓘ','ⓙ','ⓚ','ⓛ','ⓜ',
