@@ -10,7 +10,7 @@ ChatBox=class{
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
   static undo=null; // Not used yet
-  static version='1.30';
+  static version='1.31';
 
   // Constructor
 
