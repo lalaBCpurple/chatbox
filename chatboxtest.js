@@ -10,7 +10,7 @@ ChatBox=class{
   static italic; // The italic font (sans or serif)
   static plain; // The plain font (ascii, sans or serif)
   static undo=null;
-  static version='1.36';
+  static version='1.37';
 
   // Constructor
 
@@ -70,8 +70,9 @@ ChatBox=class{
     const elt=document.getElementById(ChatBox.id);
     if(elt===null)return;
     let text=elt.value;
-    if(text.length==0)
-      return;
+    if(text.length==0){
+      ChatBox.undo=null;
+      return;}
     if(text[0]==' '){
       // If we've done a change, space is undo
       if(ChatBox.undo===null)return;
