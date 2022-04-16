@@ -80,9 +80,9 @@ ChatBox=class{
       elt.value=' '+ChatBox.undo;
       ChatBox.undo=null;
       return;}
-    // Bold *...*
+    // Bold **...**
     text=ChatBox.substituteBetween(
-      text,'*','*',
+      text,'**','**',
       [[ChatBox.ascii,ChatBox.bold],
        [ChatBox.sans,ChatBox.sansBold],
        [ChatBox.sansItalic,ChatBox.sansBoldItalic],
@@ -100,35 +100,35 @@ ChatBox=class{
        [ChatBox.sans,ChatBox.circleWhite],
        [ChatBox.sansBold,ChatBox.circleBlack],
        [ChatBox.serifBold,ChatBox.circleBlack]]);
-    // Courier =...=
+    // Courier ==...==
     text=ChatBox.substituteBetween(
-      text,'=','=',
+      text,'==','==',
       [[ChatBox.ascii,ChatBox.courier],
        [ChatBox.sans,ChatBox.courier]]);
-    // Cursive ~...~
+    // Cursive ~~...~~
     text=ChatBox.substituteBetween(
-      text,'~','~',
+      text,'~~','~~',
       [[ChatBox.ascii,ChatBox.cursive],
        [ChatBox.sans,ChatBox.cursive],
        [ChatBox.sansBold,ChatBox.cursiveBold],
        [ChatBox.serifBold,ChatBox.cursiveBold]]);
-    // Fraktur #...#
+    // Fraktur ##...##
     text=ChatBox.substituteBetween(
-      text,'#','#',
+      text,'##','##',
       [[ChatBox.ascii,ChatBox.fraktur],
        [ChatBox.sans,ChatBox.fraktur],
        [ChatBox.sansBold,ChatBox.frakturBold],
        [ChatBox.serifBold,ChatBox.frakturBold]]);
-    // Italic /.../
+    // Italic //...//
     text=ChatBox.substituteBetween(
-      text,'/','/',
+      text,'//','//',
       [[ChatBox.ascii,ChatBox.italic],
        [ChatBox.sans,ChatBox.sansItalic],
        [ChatBox.sansBold,ChatBox.sansBoldItalic],
        [ChatBox.serifBold,ChatBox.serifBoldItalic]]);
-    // Outline |...|
+    // Outline ||...||
     text=ChatBox.substituteBetween(
-      text,'|','|',
+      text,'||','||',
       [[ChatBox.ascii,ChatBox.outline],
        [ChatBox.sans,ChatBox.outline]]);
     // Square [[...]]
@@ -138,17 +138,17 @@ ChatBox=class{
        [ChatBox.sans,ChatBox.squareWhite],
        [ChatBox.sansBold,ChatBox.squareBlack],
        [ChatBox.serifBold,ChatBox.squareBlack]]);
-    // Underline _..._
+    // Underline __...__
     text=ChatBox.substituteBetween(
-      text,'_','_',
+      text,'__','__',
       [[ChatBox.ascii,ChatBox.underline],
        [ChatBox.sans,ChatBox.underline],
        // Double underline is unreliably rendered
        [ChatBox.underline,ChatBox.underlineTwice]]);
     // This comes last to avoid moving special characters
-    // Rotated ^...^
+    // Rotated ^^...^^
     text=ChatBox.substituteBetween(
-      text,'^','^',
+      text,'^^','^^',
       [[ChatBox.ascii,ChatBox.rotated],
        [ChatBox.sans,ChatBox.rotated],
        [ChatBox.rotated,ChatBox.plain]],
