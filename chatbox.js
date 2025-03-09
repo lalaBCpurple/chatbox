@@ -145,6 +145,13 @@ ChatBox=class{
        [ChatBox.sans,ChatBox.underline],
        // Double underline is unreliably rendered
        [ChatBox.underline,ChatBox.underlineTwice]]);
+    // Metal ::...::
+    text=ChatBox.substituteBetween(
+      text,'__','__',
+      [[ChatBox.ascii,ChatBox.metal],
+       [ChatBox.sans,ChatBox.metal],
+       // Double underline is unreliably rendered
+       [ChatBox.underline,ChatBox.underlineTwice]]);
     // This comes last to avoid moving special characters
     // Rotated ^^...^^
     text=ChatBox.substituteBetween(
@@ -293,6 +300,12 @@ ChatBox=class{
     'n̲','o̲','p̲','q̲','r̲','s̲','t̲','u̲','v̲','w̲','x̲','y̲','z̲',
     'A̲','B̲','C̲','D̲','E̲','F̲','G̲','H̲','I̲','J̲','K̲','L̲','M̲',
     'N̲','O̲','P̲','Q̲','R̲','S̲','T̲','U̲','V̲','W̲','X̲','Y̲','Z̲'];
+  static metal=[
+    '0','1','2','3','4','5','6','7','8','9',
+    'ä','ḃ','ċ','ḋ','ë','f','ġ','ḣ','ï','j','ḳ','l','ṁ',
+    'ṅ','ö','ṗ','q','ṙ','ṡ','ẗ','ü','ṿ','ẅ','x','ÿ','ż',
+    'Ä','Ḃ','Ċ','Ḋ','Ë','Ḟ','Ġ','Ḧ','Ï','J','K','Ŀ','Ṁ',
+    'Ṅ','Ö','Ṗ','Q','Ṙ','Ṡ','Ṫ','Ü','V','Ẅ','Ẍ','Ÿ','Ż'];
   // This doesn't work as expected in all fonts
   static underlineTwice=[
     '0','1','2','3','4','5','6','7','8','9',
