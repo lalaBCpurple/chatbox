@@ -149,9 +149,7 @@ ChatBox=class{
     text=ChatBox.substituteBetween(
       text,'::','::',
       [[ChatBox.ascii,ChatBox.metal],
-       [ChatBox.sans,ChatBox.metal],
-       // Double underline is unreliably rendered
-       [ChatBox.underline,ChatBox.underlineTwice]]);
+       [ChatBox.sans,ChatBox.metal]]);
     // This comes last to avoid moving special characters
     // Rotated ^^...^^
     text=ChatBox.substituteBetween(
