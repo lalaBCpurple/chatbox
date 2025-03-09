@@ -147,7 +147,7 @@ ChatBox=class{
        [ChatBox.underline,ChatBox.underlineTwice]]);
     // Metal ::...::
     text=ChatBox.substituteBetween(
-      text,'__','__',
+      text,'::','::',
       [[ChatBox.ascii,ChatBox.metal],
        [ChatBox.sans,ChatBox.metal],
        // Double underline is unreliably rendered
